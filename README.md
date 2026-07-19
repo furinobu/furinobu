@@ -50,3 +50,31 @@ Hi, I'm Harry! I am a student in the Faculty of Information Engineering at the C
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
+
+## Portfolio development
+
+The portfolio at the repository root is a SvelteKit static site. The contact form posts JSON to `${PUBLIC_BACKEND_URL}/api/contact`.
+
+Set both required public build-time values in the tracked root `.env` before starting, building, or deploying; a blank or missing value fails the frontend build. The root `.env` is used by the GitHub Pages build. The contact backend is maintained in the separate private `furinobu/portfolio-backend` repository; its `.env` stays private on the VPS.
+
+```sh
+PUBLIC_BACKEND_URL=https://api.example.com \
+PUBLIC_TURNSTILE_SITE_KEY=your-site-key \
+npm run build
+```
+
+The GitHub Pages workflow reads the tracked root `.env` directly. Do not expose the server-side Turnstile secret in the static site.
+
+```sh
+npm install
+npm run dev
+npm run build
+```
+
+For a project GitHub Pages deployment, build with its repository path:
+
+```sh
+BASE_PATH=/your-repository-name npm run build
+```
+
+The generated static site is in `build/`. `static/.nojekyll` is included for direct GitHub Pages uploads.
